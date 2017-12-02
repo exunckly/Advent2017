@@ -8,14 +8,14 @@ library(readr)
 ### Part 1
 fn_day2 <- function(x){
  sum(apply(x , 1 , max, na.rm=T) - apply(x , 1 , min, na.rm=T))
-# I now see that diff(range(x)) is designed for this kind of thing
+# Edit: From looking at other people's solutions, I now know that diff(range(x)) is designed for this kind of thing
 }
 
 myfile <- "day2part1.tsv"
 myday2 <- read_tsv(myfile, col_names = FALSE)
 fn_day2(myday2)
 
-# I also now know that checksum() is a function
+# Edit: From looking at other people's solutions I also now know that checksum() is a thing
 
 ### Part 2
 

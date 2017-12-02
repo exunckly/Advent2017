@@ -25,6 +25,9 @@ fn_day2pt2 <- function(x){
   
   alldivides <- c(unlist(mycombo[1,]) %% unlist(mycombo[2,]),unlist(mycombo[2,]) %% unlist(mycombo[1,]))
   
+  # Edit: combn was the first thing I found when searching for what I wanted
+  # Edit: from other people's solutions, I now see that outer() is a shortcut to this
+  
   myloc <- which(alldivides == 0)
   if (myloc > mylen){
     myloc = myloc - mylen

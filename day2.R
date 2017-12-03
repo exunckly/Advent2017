@@ -15,8 +15,6 @@ myfile <- "day2part1.tsv"
 myday2 <- read_tsv(myfile, col_names = FALSE)
 fn_day2(myday2)
 
-# Edit: From looking at other people's solutions I also now know that checksum() is a thing
-
 ### Part 2
 
 fn_day2pt2 <- function(x){

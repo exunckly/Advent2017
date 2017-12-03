@@ -5,6 +5,8 @@ fn_whichring <- function(x){
   # Work out which ring the number is in, centre number is ring 1, ring ending in 9 is ring 2 etc.
   # The last number in each ring is the square of an odd number
   
+  # Edit: working in side lengths (as others have done) rather than rings would have involved fewer conversions to and fro.
+  
   # Take square root and round up to nearest odd number
     y <- x^0.5
   z <- ceiling(y)
@@ -26,7 +28,8 @@ fn_cornerdist <- function(x, ring){
   around_spiral_dist = bottom_right - x # We already know that x <= bottom_right and that it's in the correct ring
   
   # Work out the distance that the number is away from any corner
-  # The side length is 2*(ring-1)
+  # The side length is 2*(ring-1) 
+  # Edit: as mentioned above, working in units of side length would have been far more sensible
   corner_dist <- around_spiral_dist %% (2*(ring-1))
   if (corner_dist > (ring - 1)){
     corner_dist <- 2*(ring-1) - corner_dist # i.e. mirror it if it's actually closer to the other corner

@@ -16,7 +16,7 @@ fn_whichring <- function(x){
   }
 
 # In any one ring:
-# the minimum distance from the centre is fn_whichring steps, i.e. the middle of a side
+# the minimum distance from the centre is fn_whichring - 1 steps, i.e. the middle of a side
 # the maximum distance from the centre is a corner
 
 fn_nosteps <- function(x, ring){

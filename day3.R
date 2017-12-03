@@ -15,25 +15,24 @@ fn_whichring <- function(x){
   myans
   }
 
-# The minimum distance from the centre is fn_whichring (i.e. the middle of a side)
-# The maximum distance from the centre is fn_whichring + (sidelength - 1)/2 (i.e. a corner)
-
-# Work out how far along the side our number is
+# In any one ring:
+# the minimum distance from the centre is fn_whichring steps, i.e. the middle of a side
+# the maximum distance from the centre is a corner
 
 fn_nosteps <- function(x, ring){
   # work out how far x is from the bottom right corner, spiral-wise
-  bottom_right = (2*ring - 1)^2  # I appreciate that this 'undoes' what I did in the other fn :-)
+  bottom_right = (2*ring - 1)^2
   around_spiral_dist = bottom_right - x # We already know that x <= bottom_right and that it's in the correct ring
   
-  # Work out the distance that the number is away from a corner
+  # Work out the distance that the number is away from any corner
   # The side length is 2*(ring-1)
   corner_dist <- around_spiral_dist %% (2*(ring-1))
   if (corner_dist > (ring - 1)){
     corner_dist <- 2*(ring-1) - corner_dist # i.e. mirror it if it's actually closer to the other corner
   }
 
-  # corners are (ring-1) * 2 steps away from the centre of the matrix
-  centre_dist <- (ring-1)*2 - corner_dist
+  # corners are 2*(ring-1) steps away from the centre of the matrix
+  centre_dist <- 2*(ring-1) - corner_dist
 }
   
  

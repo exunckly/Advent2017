@@ -1,5 +1,3 @@
-library(dplyr) # for case statement
-
 # Day 3 part 1
 # I reused more of this than expected in part 2...
 

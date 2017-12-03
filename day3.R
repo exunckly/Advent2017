@@ -50,7 +50,6 @@ part1_sol
   
   
 # Day 3 part 2
-# Set thingsa up as 
 
 fn_spiralize <- function(spirallength, x = 0, y = 0, direction = "right"){
   # construct a spiral
@@ -117,7 +116,7 @@ myloc <- fn_spiralize(myspirallength, 0, 0, "right")
 # Calculate values
 
 # Each location has 8 adjacent locations, which may or may not already be filled in
-# Locations 2 to 9 returned by spiralize will be the relevant locations
+# These will be locations 2 to 9 returned by a separate call of spiralize
 
 for (i in 2:length(myval)){
   # Get the adjacent cells
@@ -126,9 +125,10 @@ for (i in 2:length(myval)){
   # Add the adjacent cell values
   for (j in 2:length(adjacent_cells[1,])){
   
-  # Do a lookup of the indices and add the value of the adjacent cell
+  # Do a lookup of the indices - know that they will appear only once in the myloc vector
+  # and add the value of the adjacent cell (only if it's actually there...)
    a <- intersect (which(myloc[1,] == adjacent_cells[1,j]), which(myloc[2,] == adjacent_cells[2,j]))
-   if (length(a)>0){ # Took ages to work out how to do this...
+   if (length(a)>0){ # Took ages to work out how to test for this...
      myval[1,i] <- myval[1,i] + myval[1,a]
    }
   }

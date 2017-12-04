@@ -32,7 +32,7 @@ mycol <- max(count.fields("day4download.txt", sep = " "))
 
 # Now we know how many columns there are, we can feed it the right number of col.names up front
 # It puts "" in empty cells
-# Not using stringsasfactors = FALSE had me stuck FOR EVER
+# Not using stringsasfactors = FALSE had me stuck FOR EVER on part 2
 day4data <- read.table("day4download.txt", header = FALSE, sep=" ", fill = TRUE, col.names = 1:mycol, stringsAsFactors = FALSE)
 
 fn_validpasswordno(day4data)

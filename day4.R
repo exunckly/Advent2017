@@ -10,6 +10,8 @@ fn_validpasswordno <- function (pwarray){
   # Function returns the number of valid passwords, by applying the following rule:
   #     - all of the strings in a row must be unique
   
+  #### Edit: it turns out that duplicated() and any() are good things to know about!
+  
   # This is the maximum number of strings on a line
   mylen = length(pwarray)
   
@@ -25,6 +27,8 @@ fn_validpasswordno <- function (pwarray){
 
 
 # Day 4 part 1
+
+### Edit: it turns out that tibble(readlines()) woiuld have saved most of this pain
 
 # By default, R works out the number of columns from the content of the first 5 rows. For read.table, at least
 # The work-around is to go through the file first and find the maximum number of columns required:
@@ -45,7 +49,10 @@ fn_validpasswordno(day4data)
 alphasort <- function(x){
   # More pipes than the 'Mull of Kintyre' overdub session
   # It concatenated all of the elements together when hit with apply, which was unexpected...
-  unlist(strsplit(x,"")) %>% sort() %>% str_c(collapse="")
+    unlist(strsplit(x,"")) %>% sort() %>% str_c(collapse="")
+  
+  ### Edit: looks like I somehow have to nest this inside some kind of apply to stop the above from happening.
+  ### Will work on it another time
 }
 
 # The line below didn't work. I got fed up and used a loop instead.

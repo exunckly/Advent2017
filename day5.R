@@ -25,9 +25,7 @@ fn_steps <- function(x, default_offset = 1, usecutoff = FALSE, cutoff = 0, op = 
     }
     
     x$steps[1] <- x$steps[1] + 1
-    if (x$steps[1] %% 100000 == 0){
-      print(paste(x$steps[1],x$pos[1]))
-    }
+
   }
   # Return the updated df
   return(x)

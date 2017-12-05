@@ -38,9 +38,9 @@ original_locs <- locs
 
 # while the current location is within the bounds of the tibble
 
-#steps <- fn_steps(locs, pos = 1)
+steps <- fn_steps(locs, pos = 1)
 
-#print(paste("Part 1: ", steps, "steps"))
+print(paste("Part 1: ", steps, "steps"))
 
 # Day 5 part 2
 # Reset

@@ -36,7 +36,7 @@ locs <- parse_integer(readLines("day5input.txt"))
 steps <- 0
 position <- 1
 
-# while the current location is within the bounds of the tibble
+# while the current location is within the bounds of the vector
 
 steps <- fn_steps(locs, pos = position)
 

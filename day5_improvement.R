@@ -6,6 +6,8 @@ library(dplyr)
 fn_steps <- function(x, pos, default_offset = 1, usecutoff = FALSE, cutoff = 0, op = `>=`, other_offset = 1){
   # fnmove(blah) will increment the offset by 1 each time
   # Define the other inputs if you want to use a different offset based on a single condition
+  ## Edit: it is possible to pass a function to a function.
+  
   ubound <- length(x)
   steps <- 0
   
@@ -23,7 +25,6 @@ fn_steps <- function(x, pos, default_offset = 1, usecutoff = FALSE, cutoff = 0, 
     }
     steps <- steps + 1
   }
-  # Return the updated df
   return(steps)
 }
 
@@ -34,11 +35,10 @@ locs <- parse_integer(readLines("day5input.txt"))
 
 steps <- 0
 position <- 1
-original_locs <- locs
 
 # while the current location is within the bounds of the tibble
 
-steps <- fn_steps(locs, pos = 1)
+steps <- fn_steps(locs, pos = position)
 
 print(paste("Part 1: ", steps, "steps"))
 
@@ -46,7 +46,6 @@ print(paste("Part 1: ", steps, "steps"))
 # Reset
 steps <- 0
 position <- 1
-locs <- original_locs
 
 steps <- fn_steps(locs, pos = position, default_offset = 1, usecutoff = TRUE, cutoff = 3, op = `>=`, other_offset = -1)
 

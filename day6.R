@@ -69,7 +69,7 @@ while (!success){
   ht$set(paste(myvec, collapse=","),index)
 }
 # Part 1
-print(index-1) # Initial state does not couht as a rearrangement
+print(index-1) # Initial state does not count as a rearrangement
 
 # Part 2
-print(index - check)
+print(index - check) # Number of iterations between repeats

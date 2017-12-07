@@ -5,7 +5,7 @@
 new.hashtable <- function() {
   e <- new.env()
   list(set = function(key, value) assign(as.character(key), value, e),
-       get = function(key) tryCatch(get(as.character(key), e), error = function(f) {cat('In error handler\n'); print(f); -999}),
+       get = function(key) tryCatch(get(as.character(key), e), error = function(f) {-999}),
        rm = function(key) rm(as.character(key), e))
   # NB this will work only for storing character strings
 }
@@ -40,6 +40,7 @@ redistribute <- function(x){
 }
 
 
+start.time <- Sys.time()
 
 # Read input
 rawtext <- (readLines("day6input.txt"))
@@ -73,3 +74,7 @@ print(index-1) # Initial state does not count as a rearrangement
 
 # Part 2
 print(index - check) # Number of iterations between repeats
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+print(time.taken)

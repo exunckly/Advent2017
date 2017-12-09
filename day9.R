@@ -38,8 +38,7 @@ for (i in 1:length(datavec))
 print(count)
 
 # Part 2
-# Start with nopling as we are not interested in the cancelled characters
-# Subtract the lengths of the strings with and without the garbage
+# Start with nopling (with the !. removed) as we are not interested in the cancelled characters
 withgarbage <- nchar(nopling)
 nogarbage <- nopling
 
@@ -49,5 +48,6 @@ while(grepl("<", nogarbage)){
   nogarbage <- sub("<[^>]*>","[]", nogarbage) 
 }
 
+# Subtract the lengths of the strings with and without the garbage
 garbagechars <- withgarbage - nchar(nogarbage)
 print(garbagechars)

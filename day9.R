@@ -18,7 +18,7 @@ nopling <- data
 
 # Now search for garbage and get rid of it too
 while(grepl("<", data)){
-  data <- sub("<[^>]*>","", data)
+  data <- sub("<[^>]*>","", data) # [^>] is short for 'any character except for >
 }
 
 # Loop through a vector keeping track of the level of nesting and incrementing a count every time we close a }

@@ -37,7 +37,7 @@ print(ans[1])
 
 # Part 2
 
-# Make a version in which we preserve the numbers and delete the connections (as we may need the weights for part 2)
+# Make a version in which we preserve the numbers and delete the connections (as we need the weights for part 2)
 weights <- unlist(strsplit(a, " -> "))
 weights <- gsub(")","",weights)
 weightsdf <- as.data.frame(weights)
@@ -51,6 +51,16 @@ weightsdf$weight <- as.numeric(as.character(weightsdf$weight))
 
 alldiscs <- as.data.frame(c(pairsdf$to, ans[1])) # The discs in the 'to' column plus the base
 colnames(alldiscs)[1] <- "to"
+
+
+# Do a thing where we:
+# 1. find the tips and fill them in
+# 2. find the discs that have only filled in discs on top, and fill them in
+# 3. Rinse, repeat
+# 4. Along the way, make a note of the first disc we find where the load isn't balanced
+#    (as we're working from the top down, the problem will be with one of the discs on top of this one)
+# 5. Compare the discs above with each other and find the odd one out
+# 6. Having done that by eye and got the star, get fed up and bodge together a way to make the computer output the answer
 
 # Find the tips
 tips <- filter(pairsdf, !(to %in% from))
@@ -79,7 +89,9 @@ while(any(is.na(confirmedweights$weight))){
 for (i in 1:length(confirmedweights$to)){
 
   if(is.na(confirmedweights$weight[i])){
+    # Make a little data frame containing only the discs that sit on top of this one
     tempdf <- filter(pairsdf, from == confirmedweights$to[i])
+    # Pull in the weights (I could have speeded this up by doing it in advance, but oh well)
     tempdf2 <- inner_join(tempdf, confirmedweights, by = "to")
     
     if(all(!is.na(tempdf2$weight))){ # i.e. if we know the weights of all discs on top of this one
@@ -88,6 +100,8 @@ for (i in 1:length(confirmedweights$to)){
         problem <- i
         test <- TRUE
       }
+      # Calculate the sum of the weights on top of this disc, the weight that this disc contributes to the stack,
+      # and the number of weightsa on top of this one
       confirmedweights$weightontop[i] <- sum(tempdf2$weight)
       confirmedweights$weight[i] <- confirmedweights$discweight[i] + confirmedweights$weightontop[i]
       confirmedweights$no_ontop[i] <- length(tempdf2$weight)

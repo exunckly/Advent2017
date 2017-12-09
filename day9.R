@@ -39,7 +39,6 @@ print(count)
 
 # Part 2
 # Start with nopling (with the !. removed) as we are not interested in the cancelled characters
-withgarbage <- nchar(nopling)
 nogarbage <- nopling
 
 # This time we retain the <>, as we don't want to count them
@@ -49,5 +48,5 @@ while(grepl("<", nogarbage)){
 }
 
 # Subtract the lengths of the strings with and without the garbage
-garbagechars <- withgarbage - nchar(nogarbage)
+garbagechars <- nchar(nopling) - nchar(nogarbage)
 print(garbagechars)

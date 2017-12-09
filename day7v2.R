@@ -104,7 +104,7 @@ tempdf2 <- inner_join(tempdf, confirmedweights, by = "to")
 myuniques <- unique(tempdf2$weight)
 weightdiff <- diff(range(myuniques))
 
-# I got fed up here and relied on knwoing that there is only one disc with a problem
+# I got fed up here and relied on knowing that there is only one disc with a problem
 if (length(tempdf2$weight[tempdf2$weight == myuniques[1]]) > length(tempdf2$weight[tempdf2$weight == myuniques[2]])){
   change <- 2
   other <- 1

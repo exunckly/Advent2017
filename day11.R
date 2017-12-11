@@ -30,17 +30,19 @@ hexdist <- function(a){
   return(steps)
 }
 
+
+# Parse inpjut
+
 myinput_orig <- read_file("day11input.txt")
 maze <- strsplit(myinput_orig, ",")[[1]]
 
+# Part 1
 moves <- matrix(0, length(maze), 2)
 
 # Work out how to use apply later, a loop will do for now
 for (i in 1:length(maze)){
   moves[i,] <- mapmove(maze[i]) 
 }
-
-# Part 1
 
 # Add up all the individual components in the x and y directions to find the tile we are on
 # We started at (0,0)

@@ -64,6 +64,7 @@ multiround <- function(x, pinches, reps = 1){
 return(x)
 }
 
+# Edit: Reduce() is designed to do exactly this kind of thing
 vectorxor <- function (x){
   # perform length(vector) - 1 comparisons in total
   currentxor <- bitwXor(x[1], x[2])

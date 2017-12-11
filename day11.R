@@ -39,7 +39,6 @@ maze <- strsplit(myinput_orig, ",")[[1]]
 moves <- matrix(0, length(maze), 2)
 
 # Work out how to use apply later, a loop will do for now
-# git problems test
 for (i in 1:length(maze)){
   moves[i,] <- mapmove(maze[i]) 
 }

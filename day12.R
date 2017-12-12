@@ -18,12 +18,12 @@ pairsdf2 <- filter(pairsdf, !is.na(pairsdf$X2)) # Make a new df in case part 2 a
 
 # Put this into an igraph
 mygraph <- (graph_from_edgelist(as.matrix(pairsdf2), directed = FALSE))
-mygroups <- components(mygraph) # This are named num vectors, because, obviously
+mygroups <- components(mygraph)
 
 # Part 1
 # Look up the cluster size of the part of the graph my vertex is in
 myvertex <- 0
-thisgroup <- mygroups$membership[as.character(myvertex)]
+thisgroup <- mygroups$membership[as.character(myvertex)] # Named numeric vector
 ans <- mygroups$csize[thisgroup]
 print(ans)
 

@@ -3,7 +3,7 @@ library(igraph)
 # Day 12
 
 # Tidy data into pairs, then make graph from edgelist
-a <- readLines("day12test.txt")
+a <- readLines("day12input.txt")
 pairsdf <- as.data.frame(a)
 pairsdf <- pairsdf %>% separate(a, c("X1","X2"), sep = "\\s<->\\s")
 
@@ -20,8 +20,14 @@ pairsdf2 <- filter(pairsdf, !is.na(pairsdf$X2)) # Make a new df in case part 2 a
 mygraph <- (graph_from_edgelist(as.matrix(pairsdf2), directed = FALSE))
 mygroups <- components(mygraph) # This are named num vectors, because, obviously
 
+# Part 1
 # Look up the cluster size of the part of the graph my vertex is in
 myvertex <- 0
 thisgroup <- mygroups$membership[as.character(myvertex)]
 ans <- mygroups$csize[thisgroup]
 print(ans)
+
+# Part 2
+# Count the total number of clusters
+ans2 <- length(mygroups$csize)
+print(ans2)

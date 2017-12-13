@@ -5,11 +5,11 @@ a <- rename(a, x = X1, d = X2)
 
 # Part 1
 # d = depth (height of a single scanner)
-# x = position of scanner (starts at 0)
+# x = position of scanner (origin is 0)
 # T = period = 2(d-1)
 # t = current time (and also position of current scanner)
 # We reach scanner 0 at t = 0 (initial state), 1 at t = 1, scanner 2 at t = 2 etc. so x = t
-# We intersect if t mod T[t] is zero, as all scanners start at the top
+# We intersect if t %% T[t] is zero, as all scanners start at the top
 
 # Calculate period of each oscillator
 add_column(a, T = 0, intersect = 0)
@@ -23,10 +23,9 @@ a$severity <- a$x * a$d * a$intersect
 ans <- sum(a$severity)
 print(ans)
 
-# Part 2 - now we introduce a delay, so x!= t
-# We now test to see if (x + delay) %% T is zero
-
-#Also work in a vector as it's zillions of times faster than a tibble
+# Part 2 - introduce a delay
+# Intersections now happen if (x + delay) %% T is zero
+# Also work with vectors as it's zillions of times faster than using data frames
 
 myx <- as.matrix(a$x)
 myT <- as.matrix(a$T)

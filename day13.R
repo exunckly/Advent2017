@@ -32,7 +32,7 @@ myx <- as.matrix(a$x)
 myT <- as.matrix(a$T)
 
 clearrun <- FALSE
-i <- 0 # delay
+i <- -1 # delay, as i is incremented in the loop this is how to check if we can get a clear run with no delay
 while (clearrun == FALSE){
   i <- i + 1
   myvec <- ifelse((myx + i) %% myT == 0, 1, 0)

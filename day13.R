@@ -6,9 +6,10 @@ a <- rename(a, x = X1, d = X2)
 # Part 1
 # d = depth (height of a single scanner)
 # x = position of scanner (origin is 0)
-# T = period = 2(d-1)
-# t = current time (and also position of current scanner)
-# We reach scanner 0 at t = 0 (initial state), 1 at t = 1, scanner 2 at t = 2 etc. so x = t
+# T = period of scanner = 2(d-1)
+# t = current time
+
+# We reach scanner 0 at t = 0 (initial state), 1 at t = 1, scanner 2 at t = 2 etc. so x = t in part 1
 # We intersect if t %% T[t] is zero, as all scanners start at the top
 
 # Calculate period of each oscillator

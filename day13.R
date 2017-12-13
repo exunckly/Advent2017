@@ -32,7 +32,7 @@ myx <- as.matrix(a$x)
 myT <- as.matrix(a$T)
 
 clearrun <- FALSE
-i <- 2 # delay
+i <- 0 # delay
 while (clearrun == FALSE){
   i <- i + 1
   myvec <- ifelse((myx + i) %% myT == 0, 1, 0)

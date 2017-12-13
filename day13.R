@@ -38,6 +38,9 @@ i <- -1 # delay, as i is incremented in the loop this is how to check if we can 
 while (clearrun == FALSE){
   i <- i + 1
   myvec <- ifelse((myx + i) %% myT == 0, 1, 0)
+  # Could speed this up further by having second loop that we drop out of if we hit a 1,
+  # so we don't have to calculate the whole vector each time
+  # but the above is adequate for the problem in hand
   if (sum(myvec) == 0){
     clearrun <- TRUE
   }

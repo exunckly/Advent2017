@@ -1,6 +1,6 @@
 # Day 14
 
-# Revisit the knot hash functioins I wrote for day 10, using Reduce() where appropriate
+# Revisit the knot hash functions I wrote for day 10, using reduce() this time
 
 myshift <- function(x,m){
   # Function shifts a loop-ised vector by m places

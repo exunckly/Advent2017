@@ -114,7 +114,6 @@ mem <- matrix(nrow = 128, ncol = 128)
 for (i in 1:128){
   hashinput <- paste(mykeystring, "-", i-1, sep="")
   mem[i,] <- hex2bin(entireknothash(hashinput))
-# Convert each part of the hex string to a binary number, from left to right
 }
 print(sum(mem))
 
@@ -125,7 +124,7 @@ regionlabel <- 0
 equivcount <- 1
 edgelist <- matrix(nrow = 128*128, ncol = 2)
 
-# Implement the first half of the two-pass connected region algorithm to generate a list of equivalent regions:
+# Implement the first pass of the two-pass connected region algorithm to generate a list of equivalent regions:
 # https://en.wikipedia.org/wiki/Connected-component_labeling
 
 # Then put the list of equivalent regions into igraph as an edgelist and see how many clusters there are
@@ -172,19 +171,18 @@ for (i in 1:128){
   }
 }
 
-
-# Put the edge list into igraph and count the number of clusters (as per day 12 of AoC)
+# Keep only unique rows
 equivdf <- as.tibble(edgelist)
 dedupe <- equivdf %>% unique
 
 # As we initialised the edge list with NAs there will still be one row of them left
 dedupe <- filter(dedupe, !is.na(dedupe$V2))
 
-# igraph does the rest of the lifting
+# Put the edge list into igraph and count the number of clusters (as per day 12 of AoC)
 mygraph <- (graph_from_edgelist(as.matrix(dedupe), directed = FALSE))
 mygroups <- components(mygraph)
 
-ans2 <- mygroups$no
-print(ans2)
+part2 <- mygroups$no
+print(part2)
 
 

@@ -103,8 +103,7 @@ print(mytotal)
 # user  system elapsed 
 # 0.425   0.004   0.430 
 
-# This speed is OK, now get my solutoon for part 1
-# Now use my values for A and B
+# This speed is OK, now get my solution for part 1 using my values for A and B
 A <- 289
 B <- 629
 mytotal <- 0

@@ -135,7 +135,7 @@ system.time(while (nopairs <= 5000000){
   }
   # Compare
   mytotal <- mytotal + testpairs3(A, B)
-  nopairs <- nopairs + 1 # Test case to implement this last
+  nopairs <- nopairs + 1 # Test case, so implement this after incementing the total
   # Generate to trigger the while loops again
   A <- nextgen(A, factA, divisor)
   B <- nextgen(B, factB, divisor)

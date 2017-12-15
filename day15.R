@@ -3,7 +3,6 @@
 library(R.utils)
 library(stringr)
 library(binaryLogic)
-library(bit)
 
 testpairs <- function(x, y, bits = 16){
   # Bitwise XOR the two numbers together, convert to binary and test for the last 16 (or all) digits being 0

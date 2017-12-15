@@ -4,6 +4,8 @@ library(R.utils)
 library(stringr)
 library(binaryLogic)
 
+# Only the third of these functions ended up being used, the others were too slow.
+
 testpairs <- function(x, y, bits = 16){
   # Bitwise XOR the two numbers together, convert to binary and test for the last 16 (or all) digits being 0
   mytest <- intToBin(bitwXor(x,y))

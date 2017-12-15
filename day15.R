@@ -3,6 +3,7 @@
 library(R.utils)
 library(stringr)
 library(binaryLogic)
+library(bit)
 
 # Only the third of these functions ended up being used, the others were too slow.
 
@@ -29,7 +30,7 @@ testpairs2 <- function(x, y, bits = 16){
 
 testpairs3 <- function(x, y){ # THIS ONE IS THE WINNER!!!
   # Bitwise XOR the two numbers together, as before
-  # But no need to convert to binary and faff: if the last 16 bits are zero it divides by 65536!
+  # But no need to convert to binary and faff: if the last 16 bits are zero it divides by 65536
   ifelse(bitwXor(x,y) %% 65536 == 0, return(1), return(0))
 }
 
@@ -103,7 +104,7 @@ print(mytotal)
 # user  system elapsed 
 # 0.425   0.004   0.430 
 
-# This speed is OK, now get my solution for part 1 using my values for A and B
+# This speed is OK. Get solution for part 1 using my values for A and B
 A <- 289
 B <- 629
 mytotal <- 0
@@ -146,3 +147,55 @@ print(mytotal)
 #67.393   0.238  67.937 
 
 
+### ADDENDUM
+# Apparently this is all a known problem. 2147483647 is 2^31 - 1 (and a Mersenne prime)
+# The algorithm is an established pseudo-RNG and the seeds given to A and B are known too
+# This page is an AMAZING read: http://www.firstpr.com.au/dsp/rand31/#History-PMMS
+
+# But for some reason the stuff I wrote in R is faster than running these algorithms in C++ from R
+# (Possibly because my processor is 64 bit rather than 32 bit? Maybe?!)
+
+library(R.utils)
+library(Rcpp)
+
+# The Park-Millar-Carta 16807 random number generator
+# Hardwire the 16807 so that it's compiled in there
+cppFunction('long unsigned int rand31_16807(long unsigned int seed){
+            long unsigned int hi, lo;
+            lo = 16807 * (seed & 0xFFFF);
+            hi = 16807 * (seed >> 16);
+            lo += (hi & 0x7FFF) << 16;
+            lo += hi >> 15;
+            lo = (lo & 0x7FFFFFFF) + (lo >> 31);
+            return (seed = (long)lo);
+            }')
+
+# The Park-Millar-Carta 48271 random number generator
+# Hardwire the 48271 so that it's compiled in there
+cppFunction('long unsigned int rand31_48271(long unsigned int seed){
+            long unsigned int hi, lo;
+            lo = 48271 * (seed & 0xFFFF);
+            hi = 48271 * (seed >> 16);
+            lo += (hi & 0x7FFF) << 16;
+            lo += hi >> 15;
+            lo = (lo & 0x7FFFFFFF) + (lo >> 31);
+            return (seed = (long)lo);
+            }')
+
+A <- 65
+B <- 8921
+system.time(for (i in 1:5000000){
+    A <- rand31_16807(A)
+    B <- rand31_48271(B)
+})
+# user  system elapsed 
+# 14.063   5.084  19.174 
+
+A <- 65
+B <- 8921
+system.time(for (i in 1:5000000){
+  A <- nextgen(A, factA, divisor)
+  B <- nextgen(B, factB, divisor)
+})
+# user  system elapsed 
+# 7.569   0.049   7.651 

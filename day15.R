@@ -7,7 +7,7 @@ library(stringr)
 library(binaryLogic)
 library(bit)
 
-# Only the third of these functions ended up being used, the others were too slow.
+# Only the third (edit: fourth, in the end) of these functions ended up being used, the others were too slow.
 
 testpairs <- function(x, y, bits = 16){
   # Bitwise XOR the two numbers together, convert to binary and test for the last 16 (or all) digits being 0

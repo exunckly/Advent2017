@@ -114,6 +114,10 @@ print(mytotal)
 # user  system elapsed 
 # 0.425   0.004   0.430 
 
+# Speedtest of function testpairs4
+A <- 65
+B <- 8921
+mytotal <- 0
 
 system.time(for (i in 1:100000){
   # Generate new values
@@ -125,7 +129,7 @@ system.time(for (i in 1:100000){
 print(mytotal)
 # Function testpairs4 for 100000 iterations, test input:
 # user  system elapsed 
-# 0.307   0.017   0.333  
+# 0.279   0.001   0.280   
 
 # This speed is OK. Get solution for part 1 using my values for A and B
 A <- 289

@@ -58,7 +58,7 @@ nextgen <- function (val, factor, divisor){
 # Work with individual values so as not to store a large data structure
 
 # Setup
-{factA <- 16807
+factA <- 16807
 factB <- 48271
 divisor <- 2147483647
 
@@ -219,6 +219,6 @@ B <- 8921
 system.time(for (i in 1:5000000){
   A <- nextgen(A, factA, divisor)
   B <- nextgen(B, factB, divisor)
-})}
+})
 # user  system elapsed 
 # 7.569   0.049   7.651 

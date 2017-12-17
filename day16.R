@@ -56,14 +56,16 @@ progs <- progsorig
 flag <- FALSE
 myrepeat <- 0
 
+# Dance complete cycles until what comes out is what we started with
 while (flag == FALSE){
   progs <- dance(progs, op, locs)
   myrepeat <- myrepeat + 1
   if(identical(progs, progsorig)) flag <- TRUE
 }  
 
-# Find out the remainder when we divide 1 billion by myrepeat, and this is the number of times we need to dance
+# Find out the remainder when we divide 1 billion by myrepeat - actual number of dances we need to do
 nodances <- 1000000000 %% myrepeat
+print(nodances)
 
 progs <- progsorig
 

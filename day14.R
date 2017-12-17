@@ -1,4 +1,6 @@
 # Day 14
+library(igraph)
+library(BMS)
 
 # Revisit the knot hash functions I wrote for day 10, using reduce() this time
 
@@ -134,16 +136,8 @@ for (i in 1:128){
    # If the memory element is in use (==1), then test to see if the neighbouring elements to the left and up == 1
     # If they are in use, find out if they already have region labels
     if (mem[i,j] == 1){
-        if (mem[i-1,j] == 1 && i > 1){ # Need to test for the edges
-          leftlabel <- labels[i-1,j]
-        }else{
-          leftlabel <- NA
-        }
-        if (mem[i,j-1] == 1 && j > 1){
-          uplabel <- labels[i,j-1]
-        }else{
-          uplabel <- NA
-        }
+        ifelse (mem[i-1,j] == 1 && i > 1, leftlabel <- labels[i-1,j], leftlabel <- NA)
+        ifelse (mem[i,j-1] == 1 && j > 1, uplabel <- labels[i,j-1], uplabel <- NA)
       #If none of the neighbours already have a region label, give the current element a new region label
         if (is.na(leftlabel) && is.na(uplabel)){
           regionlabel <- regionlabel + 1
@@ -158,7 +152,8 @@ for (i in 1:128){
         }
         
       #Add equivalent labels to the edgelist for igraph
-      # Record occasions where leftlabel = uplabel as a region may have only one label and we want it to be included
+      # Record all occasiona when leftlabel and uplabel were both there, as they may have been different.
+      # Also include when leftlabel == uplabel as a region may have only one label and we want it to be included
         if (!is.na(leftlabel) && !is.na(uplabel)){
           edgelist[equivcount,] <- c(min(leftlabel, uplabel), max(leftlabel,uplabel))
           equivcount <- equivcount + 1
@@ -166,7 +161,6 @@ for (i in 1:128){
         else{ # Also includes unconnected individual elements in the edgelist (forgot this bit the first time)
           edgelist[equivcount,] <- c(regionlabel, regionlabel)
         }
-      
     }
   }
 }
@@ -184,5 +178,3 @@ mygroups <- components(mygraph)
 
 part2 <- mygroups$no
 print(part2)
-
-

@@ -1,7 +1,9 @@
 # Day 17
 
 stepforward <- function(pos, steps, len){
-  # if pos > len return an error!
+  if(pos > len || pos < 1){
+       stop('Position cannot be outside vector')
+     }
   #Normalise
   steps <- steps %% len
   pos <- (pos + steps)
@@ -16,7 +18,7 @@ spinlock <- function (lent, valc, stepsize, queryval = 0){
   # queryval - function returns the value in the position after queryval
   
   # NB: if queryval is 0, the function keeps track of the value in position 1
-  # and doesn't actually create the buffer (as 0 never moves)
+  # and doesn't actually create the buffer (as 0 is the first element and therefore never moves)
   
   # initialise
   lenc <- 1 # Current length
@@ -54,7 +56,6 @@ spinlock <- function (lent, valc, stepsize, queryval = 0){
   
 }
 
-
 # Part 1 solution
 valc <- 1 # Current value
 lent <- 2018 # Total length of buffer, eventually
@@ -62,7 +63,7 @@ stepsize <- 363 # My stepsize
 ans <- spinlock(lent, valc, stepsize, queryval = lent-1)
 print (ans)
 
-# Part 2
+# Part 2 solution
 # The value after 0 will be the 2nd element, as the 0 can never be moved
 valc <- 1 # Current value
 lent <- 50000000 # Total length of buffer, eventually

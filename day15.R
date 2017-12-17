@@ -1,4 +1,6 @@
 #day15.R
+# Edit: further modification to create testpairs4()-
+# ifelse is 5-10x slower than if {} else{} if the length of the test condition is 1
 
 library(R.utils)
 library(stringr)
@@ -28,12 +30,20 @@ testpairs2 <- function(x, y, bits = 16){
   # Surprisingly, this was even slower than the first version
 }
 
-testpairs3 <- function(x, y){ # THIS ONE IS THE WINNER!!!
+testpairs3 <- function(x, y){ # THIS ONE (WAS) THE WINNER!!! |(originally)
   # Bitwise XOR the two numbers together, as before
   # But no need to convert to binary and faff: if the last 16 bits are zero it divides by 65536
   ifelse(bitwXor(x,y) %% 65536 == 0, return(1), return(0))
 }
 
+testpairs4 <- function(x, y){ # if{} else{} is 5-10x faster than ifelse if the length of the test condition is 1
+  # Bitwise XOR the two numbers together, as before
+  # But no need to convert to binary and faff: if the last 16 bits are zero it divides by 65536
+  if(bitwXor(x,y) %% 65536 == 0){
+    return(1)
+    }else {return(0)
+  }
+}
 
 nextgen <- function (val, factor, divisor){
   return ((val * factor) %% divisor)
@@ -48,7 +58,7 @@ nextgen <- function (val, factor, divisor){
 # Work with individual values so as not to store a large data structure
 
 # Setup
-factA <- 16807
+profvis({factA <- 16807
 factB <- 48271
 divisor <- 2147483647
 
@@ -104,6 +114,19 @@ print(mytotal)
 # user  system elapsed 
 # 0.425   0.004   0.430 
 
+
+system.time(for (i in 1:100000){
+  # Generate new values
+  A <- nextgen(A, factA, divisor)
+  B <- nextgen(B, factB, divisor)
+  # Compare
+  mytotal <- mytotal + testpairs4(A, B)
+})
+print(mytotal)
+# Function testpairs4 for 100000 iterations, test input:
+# user  system elapsed 
+# 0.307   0.017   0.333  
+
 # This speed is OK. Get solution for part 1 using my values for A and B
 A <- 289
 B <- 629
@@ -114,11 +137,11 @@ system.time(for (i in 1:40000000){
   A <- nextgen(A, factA, divisor)
   B <- nextgen(B, factB, divisor)
   # Compare
-  mytotal <- mytotal + testpairs3(A, B)
+  mytotal <- mytotal + testpairs4(A, B)
 })
 print(mytotal) # Part 1 solution
 #  user  system elapsed 
-#162.640   0.804 164.296 
+# 105.993   0.596 106.849 
 
 
 # Part 2
@@ -135,7 +158,7 @@ system.time(while (nopairs <= 5000000){
     B <- nextgen(B, factB, divisor)
   }
   # Compare
-  mytotal <- mytotal + testpairs3(A, B)
+  mytotal <- mytotal + testpairs4(A, B)
   nopairs <- nopairs + 1 # Test case, so implement this after incementing the total
   # Generate to trigger the while loops again
   A <- nextgen(A, factA, divisor)
@@ -144,7 +167,7 @@ system.time(while (nopairs <= 5000000){
 print(mytotal)
 # Time for my values
 #  user  system elapsed 
-#67.393   0.238  67.937 
+#56.602   0.146  56.773  
 
 
 ### ADDENDUM
@@ -196,6 +219,6 @@ B <- 8921
 system.time(for (i in 1:5000000){
   A <- nextgen(A, factA, divisor)
   B <- nextgen(B, factB, divisor)
-})
+})})
 # user  system elapsed 
 # 7.569   0.049   7.651 

@@ -1,6 +1,8 @@
 # Day 17
 
 stepforward <- function(pos, steps, len){
+  # Step forward 'steps' places in a circular vector length 'len' starting at position 'pos'
+  # Vector indices start at 1
   if(pos > len || pos < 1){
        stop('Position cannot be outside vector')
      }
